@@ -18,10 +18,10 @@
             VibrationOnDetected="False" />
 
         <Button
-            x:Name="facing"
+            x:Name="facingButton"
             Margin="0,0,0,15"
             BackgroundColor="White"
-            Clicked="Facing_Clicked"
+            Clicked="FacingButton_Clicked"
             HeightRequest="40"
             HorizontalOptions="End"
             Text="Front/Rear"
@@ -30,7 +30,23 @@
             WidthRequest="110" />
 
         <ScrollView Grid.Row="1">
-            <Label x:Name="resultLabel" TextColor="White" />
+            <Grid>
+                <Button
+                    x:Name="clearButton"
+                    Margin="5,0"
+                    BackgroundColor="White"
+                    Clicked="ClearButton_Clicked"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    Text="Clear"
+                    TextColor="Black"
+                    VerticalOptions="Start"
+                    WidthRequest="60" />
+                <Label
+                    x:Name="resultLabel"
+                    Text=""
+                    TextColor="White" />
+            </Grid>
         </ScrollView>
     </Grid>
 

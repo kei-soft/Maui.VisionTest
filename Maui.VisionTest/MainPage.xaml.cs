@@ -19,16 +19,15 @@ public partial class MainPage : ContentPage
         string result = string.Empty;
         for (int i = 0; i < barcodeResults.Count; i++)
         {
-            result += $"BarcodeType : {barcodeResults[i].BarcodeType}, Resi;t : {barcodeResults[i].DisplayValue}{Environment.NewLine}";
+            result += $"BarcodeType : {barcodeResults[i].BarcodeType}, Result : {barcodeResults[i].DisplayValue}{Environment.NewLine}";
         }
 
         Dispatcher.Dispatch(() =>
         {
             // 중복 결과 방지
-            if (resultLabel.Text.Contains(result))
+            if (!resultLabel.Text.Contains(result))
             {
                 // 결과 표시
-                //await DisplayAlert("Result", result, "OK");
                 resultLabel.Text = result + Environment.NewLine + resultLabel.Text;
             }
 
@@ -37,7 +36,7 @@ public partial class MainPage : ContentPage
         });
     }
 
-    private void Facing_Clicked(object sender, EventArgs e)
+    private void FacingButton_Clicked(object sender, EventArgs e)
     {
         if (this.Camera.CameraFacing == CameraFacing.Front)
         {
@@ -47,6 +46,11 @@ public partial class MainPage : ContentPage
         {
             this.Camera.CameraFacing = CameraFacing.Front;
         }
+    }
+
+    private void ClearButton_Clicked(object sender, EventArgs e)
+    {
+        this.resultLabel.Text = "";
     }
 }
 
