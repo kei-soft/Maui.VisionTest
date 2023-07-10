@@ -8,6 +8,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
+        // 권한 획득
         BarcodeScanner.Mobile.Methods.AskForRequiredPermission();
     }
 
@@ -18,15 +19,34 @@ public partial class MainPage : ContentPage
         string result = string.Empty;
         for (int i = 0; i < barcodeResults.Count; i++)
         {
-            result += $"Type : {barcodeResults[i].BarcodeType}, Value : {barcodeResults[i].DisplayValue}{Environment.NewLine}";
+            result += $"BarcodeType : {barcodeResults[i].BarcodeType}, Resi;t : {barcodeResults[i].DisplayValue}{Environment.NewLine}";
         }
 
-        Dispatcher.Dispatch(async () =>
+        Dispatcher.Dispatch(() =>
         {
-            await DisplayAlert("Result", result, "OK");
-            // If you want to start scanning again
+            // 중복 결과 방지
+            if (resultLabel.Text.Contains(result))
+            {
+                // 결과 표시
+                //await DisplayAlert("Result", result, "OK");
+                resultLabel.Text = result + Environment.NewLine + resultLabel.Text;
+            }
+
+            // 스캐딩 다시 시작
             Camera.IsScanning = true;
         });
+    }
+
+    private void Facing_Clicked(object sender, EventArgs e)
+    {
+        if (this.Camera.CameraFacing == CameraFacing.Front)
+        {
+            this.Camera.CameraFacing = CameraFacing.Back;
+        }
+        else
+        {
+            this.Camera.CameraFacing = CameraFacing.Front;
+        }
     }
 }
 
